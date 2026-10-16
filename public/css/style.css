@@ -1,0 +1,410 @@
+/* Professional Native-like Dark Theme */
+:root {
+    --bg-main: #000000;
+    --bg-card: #1c1c1e;
+    --bg-elevated: #2c2c2e;
+    --bg-hover: #3a3a3c;
+    
+    --text-main: #ffffff;
+    --text-muted: #8e8e93;
+    --text-subtle: #aeaeb2;
+    
+    --border: #38383a;
+    
+    --accent: #0a84ff; /* iOS Blue */
+    --accent-hover: #007aff;
+    --success: #32d74b;
+    --danger: #ff453a;
+    --warning: #ffd60a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding-bottom: 80px; /* Space for mobile nav if needed */
+}
+
+/* Layout */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Header */
+.header {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-text h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+.header-text p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Cards */
+.card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Typography & Badges */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--text-muted); }
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge.push { background: rgba(10, 132, 255, 0.15); color: var(--accent); }
+.badge.pull { background: rgba(50, 215, 75, 0.15); color: var(--success); }
+.badge.legs { background: rgba(255, 214, 10, 0.15); color: var(--warning); }
+.badge.rest { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); }
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+.btn-outline:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Floating Action Button (FAB) replacement for general actions */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.action-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.action-card:hover {
+    background: var(--bg-hover);
+}
+.action-card i {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+.action-card h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Modals (Native Bottom Sheet Style) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end; /* Align to bottom */
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    border-radius: 24px 24px 0 0;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-top: 1px solid var(--border);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+/* Desktop override for modals */
+@media (min-width: 768px) {
+    .modal-overlay {
+        align-items: center;
+    }
+    .modal-content {
+        border-radius: 16px;
+        transform: scale(0.95);
+        opacity: 0;
+        border: 1px solid var(--border);
+    }
+    .modal-overlay.active .modal-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+    z-index: 10;
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.btn-close {
+    background: var(--bg-elevated);
+    border: none;
+    color: var(--text-muted);
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-main);
+}
+
+/* Grid Latihan */
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.ex-card {
+    background: var(--bg-elevated);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.ex-card:hover {
+    background: var(--bg-hover);
+    border-color: var(--border);
+}
+
+.ex-card .ex-visual {
+    width: 48px;
+    height: 48px;
+    background: rgba(10, 132, 255, 0.1);
+    color: var(--accent);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px auto;
+    font-size: 1.2rem;
+}
+
+.ex-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.ex-card p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Form & Inputs */
+input[type="number"], input[type="text"], input[type="date"] {
+    width: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+input[type="number"]:focus, input[type="text"]:focus, input[type="date"]:focus {
+    border-color: var(--accent);
+}
+
+/* Checkbox Modern */
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    background: var(--bg-elevated);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+.checklist-item.done {
+    opacity: 0.6;
+    border-color: var(--success);
+}
+.checklist-item.done h4 {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+/* Toast */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--bg-elevated);
+    color: var(--text-main);
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.toast-success { border-color: var(--success); color: var(--success); }
+.toast-error { border-color: var(--danger); color: var(--danger); }
+
+/* Restored Structural Classes */
+.gamification-panel { background: var(--bg-card); padding: 16px; border-radius: 12px; margin-top: 16px; border: 1px solid var(--border); }
+.gami-level { font-weight: bold; margin-bottom: 8px; }
+.gami-exp-text { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-muted); }
+.gami-exp-bar-bg { background: var(--bg-elevated); height: 8px; border-radius: 4px; overflow: hidden; }
+.gami-exp-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.3s ease; }
+
+.days-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+#ai-chat-overlay { display: none; position: fixed; bottom: 80px; right: 20px; width: 350px; max-width: calc(100% - 40px); background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; overflow: hidden; }
+.ai-chat-header { padding: 16px; background: var(--bg-elevated); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+#ai-chat-messages { padding: 16px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.chat-msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; }
+.chat-msg.user { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-msg.bot { background: var(--bg-elevated); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; }
+.ai-chat-input-area { padding: 12px; border-top: 1px solid var(--border); display: flex; gap: 8px; }

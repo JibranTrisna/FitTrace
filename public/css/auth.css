@@ -1,0 +1,123 @@
+:root {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    --accent-glow: rgba(59, 130, 246, 0.4);
+    --success: #10b981;
+    --danger: #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--bg-main); color: var(--text-main); overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
+
+.auth-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 1; opacity: 0.4; }
+.blob-1 { width: 300px; height: 300px; background: #3b82f6; top: 10%; left: 10%; }
+.blob-2 { width: 400px; height: 400px; background: #8b5cf6; bottom: 10%; right: 10%; }
+
+.auth-card {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    z-index: 2;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-container { text-align: center; margin-bottom: 30px; }
+.logo-container i { font-size: 2.5rem; margin-bottom: 10px; }
+.logo-container h2 { font-size: 2rem; font-weight: 800; }
+.logo-container span { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-accent { color: var(--accent); filter: drop-shadow(0 0 10px var(--accent-glow)); }
+
+.form-section {
+    display: none;
+    animation: fadeIn 0.4s forwards;
+}
+.form-section.active { display: block; }
+.form-section h3 { font-size: 1.5rem; margin-bottom: 5px; text-align: center; }
+.subtitle { color: var(--text-muted); text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+.input-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.btn-glow {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px var(--accent-glow);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.btn-full { width: 100%; margin-top: 10px; }
+.btn-glow:hover { transform: translateY(-3px); box-shadow: 0 15px 40px var(--accent-glow); }
+
+.switch-form {
+    text-align: center;
+    margin-top: 25px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+.switch-form span {
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 600;
+}
+.switch-form span:hover { text-decoration: underline; }
+
+/* Toast Notifications */
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; }
+.toast { background: var(--bg-card); color: white; padding: 15px 25px; border-radius: 10px; border-left: 5px solid var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 12px; animation: slideIn 0.4s forwards, fadeOut 0.4s 3s forwards; font-weight: 600; font-size: 0.95rem; }
+.toast.success { border-color: var(--success); } .toast.success i { color: var(--success); }
+.toast.error { border-color: var(--danger); } .toast.error i { color: var(--danger); }
+@keyframes slideIn { 0% { opacity: 0; transform: translateX(100%); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; display: none; } }
+@keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }

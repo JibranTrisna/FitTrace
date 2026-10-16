@@ -1,0 +1,327 @@
+/* --- VARIABEL & RESET --- */
+:root {
+    --bg-main: #0f172a;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    --accent-glow: rgba(59, 130, 246, 0.6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow: hidden; 
+}
+
+/* --- SCREEN SYSTEM --- */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 20;
+}
+
+/* --- LANDING SCREEN --- */
+#landing-screen {
+    background: radial-gradient(circle at top right, #1e293b, var(--bg-main));
+}
+
+#landing-screen.slide-up {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.landing-content {
+    text-align: center;
+    z-index: 2;
+    padding: 0 20px;
+    animation: fadeInScale 1s ease forwards;
+}
+
+.logo-container {
+    width: 100px;
+    height: 100px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px auto;
+    box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.logo-icon {
+    font-size: 3rem;
+    color: white;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.title span {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 50px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-glow {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px var(--accent-glow);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-glow:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px var(--accent-glow);
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    background: #3b82f6;
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    width: 400px;
+    height: 400px;
+    background: #8b5cf6;
+    bottom: -150px;
+    right: -100px;
+}
+
+/* --- ONBOARDING SCREEN & ANIMATIONS --- */
+#onboarding-screen {
+    background-color: var(--bg-main);
+    transform: translateY(100%);
+}
+
+#onboarding-screen.active {
+    transform: translateY(0);
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.slide-content {
+    text-align: center;
+    max-width: 450px;
+}
+
+/* Animasi Elemen Dalam Slide Onboarding */
+.slide-img {
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px auto;
+    border: 2px solid rgba(255,255,255,0.1);
+    
+    /* Awal disembunyikan dan diputar */
+    transform: scale(0.3) rotate(-45deg);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.swiper-slide-active .slide-img {
+    /* Muncul dengan efek Bounce & Glow */
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    box-shadow: 0 0 40px var(--accent-glow);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+.slide-icon {
+    font-size: 4rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    /* Awal diturunkan ke bawah */
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.6s ease 0.2s; /* Muncul sesaat setelah gambar */
+}
+
+.slide-content p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    /* Awal diturunkan ke bawah */
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.6s ease 0.35s; /* Muncul sesaat setelah judul */
+}
+
+.swiper-slide-active h2, 
+.swiper-slide-active p {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet {
+    background: var(--text-muted) !important;
+    transition: all 0.3s;
+}
+.swiper-pagination-bullet-active {
+    background: var(--accent) !important;
+}
+
+/* Auth Buttons di Slide Terakhir */
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+    /* Efek Muncul Paling Terakhir */
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    transition: all 0.6s ease 0.5s; 
+}
+
+.swiper-slide-active .auth-buttons {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px var(--accent-glow);
+    transition: transform 0.2s;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-main);
+    border: 2px solid rgba(255,255,255,0.2);
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-3px);
+}
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+/* --- AUTH SCREEN (SEMENTARA) --- */
+#auth-screen {
+    background-color: #1e293b;
+    transform: scale(1.1);
+    opacity: 0;
+}
+
+#auth-screen.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.auth-content {
+    background: var(--bg-main);
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.btn-link:hover {
+    color: white;
+}
+
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}

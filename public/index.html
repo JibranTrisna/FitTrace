@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FitTrace - Kinetic Precision</title>
+    <style>html, body { background-color: #051424 !important; color: #d4e4fa !important; }</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#c3f400",
+                        "on-primary-fixed": "#161e00",
+                        "primary": "#ffffff",
+                        "background": "#051424",
+                        "surface": "#051424",
+                        "surface-container": "#122131",
+                        "surface-container-highest": "#273647",
+                        "surface-container-lowest": "#010f1f",
+                        "on-surface": "#d4e4fa",
+                        "on-surface-variant": "#c4c9ac",
+                        "on-background": "#d4e4fa"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "data-point": ["Sora"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "display-lg-mobile": ["Sora"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-lg": ["Sora"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 10px rgba(195, 244, 0, 0.5);
+        }
+        .box-glow-primary:hover {
+            box-shadow: 0 0 20px rgba(195, 244, 0, 0.15);
+        }
+
+        /* Splash Screen Animation */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #051424;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+        #splash-screen img {
+            width: 150px;
+            animation: pulse-glow 2s infinite;
+        }
+        .splash-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(195, 244, 0, 0.7)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(195, 244, 0, 0.9)); }
+            100% { transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(195, 244, 0, 0)); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- Splash Screen -->
+<div id="splash-screen">
+    <img src="/images/fittrace-logo.jpg" alt="FitTrace Splash Logo" class="rounded-xl">
+</div>
+
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-lg border-b border-white/10 shadow-sm transition-all duration-300" id="main-header">
+<div class="flex justify-between items-center px-4 md:px-10 py-4 max-w-[1280px] mx-auto">
+<!-- Brand -->
+<a class="flex items-center gap-2 group" href="#">
+<img alt="FitTrace Logo" class="h-10 w-10 rounded-md object-cover group-hover:opacity-80 transition-opacity" src="/images/fittrace-logo.jpg"/>
+<span class="font-headline-md text-2xl font-bold text-primary-fixed tracking-tight group-hover:text-glow-primary transition-all">FitTrace</span>
+</a>
+<!-- Navigation - Desktop -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-on-surface-variant hover:text-primary-fixed hover:bg-white/5 transition-all px-3 py-2 rounded-lg" href="#features">Features</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary-fixed hover:bg-white/5 transition-all px-3 py-2 rounded-lg" href="#plans">Plans</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary-fixed hover:bg-white/5 transition-all px-3 py-2 rounded-lg" href="#analytics">Analytics</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<a class="hidden md:inline-flex items-center justify-center px-4 py-2 font-body-md text-primary hover:text-primary-fixed transition-colors" href="login.html">Login</a>
+<a class="inline-flex items-center justify-center px-6 py-2.5 bg-primary-fixed text-on-primary-fixed font-headline-md font-bold rounded hover:shadow-[0_0_15px_rgba(195,244,0,0.4)] active:scale-95 duration-200 transition-all" href="register.html">
+                    Get Started
+                </a>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="Gym Interior" class="w-full h-full object-cover opacity-40" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background"></div>
+</div>
+<div class="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary-fixed/30 bg-primary-fixed/10 w-fit mt-10">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-caps text-xs text-primary-fixed tracking-widest uppercase">Next-Gen Performance Tracking</span>
+</div>
+<h1 class="font-display-lg-mobile text-5xl md:font-display-lg md:text-6xl font-extrabold text-primary text-glow-primary leading-tight">
+                        Kinetic Precision.
+                    </h1>
+<p class="font-body-lg text-lg text-on-surface-variant max-w-2xl">
+                        Elevate your training with elite-tier analytics. FitTrace captures every nuance of your motion, transforming raw effort into actionable, AI-driven protocols.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-primary-fixed text-on-primary-fixed font-headline-md text-xl font-bold rounded box-glow-primary hover:shadow-[0_0_20px_rgba(195,244,0,0.5)] active:scale-95 duration-200 transition-all text-center" href="register.html">
+                            Get Started
+                        </a>
+<a class="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-primary border border-white/20 font-headline-md text-xl font-bold rounded glass-panel hover:bg-white/20 hover:border-primary-fixed/50 active:scale-95 duration-200 transition-all text-center" href="login.html">
+                            Login
+                        </a>
+</div>
+</div>
+</div>
+</section>
+<!-- Features -->
+<section class="py-24 bg-surface-container relative" id="features">
+    <!-- Rest of the landing page code stripped down slightly for space, keeping core layout -->
+    <div class="max-w-[1280px] mx-auto px-4 text-center">
+        <h2 class="font-headline-md text-4xl text-primary mb-4">Engineering Excellence.</h2>
+        <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-16">Systems designed for athletes who demand uncompromising data accuracy and intelligent insight.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div class="glass-panel p-8 rounded-xl flex flex-col gap-6 md:col-span-2 group border border-white/10">
+                <h3 class="font-headline-md text-2xl text-primary mb-2">AI-Powered Guidance</h3>
+                <p class="font-body-md text-on-surface-variant">Our Kinetic AI analyzes your biometric data in real-time, dynamically adjusting intensity and volume to optimize hypertrophy and prevent overtraining.</p>
+            </div>
+            <div class="glass-panel p-8 rounded-xl flex flex-col gap-6 group border border-white/10">
+                <h3 class="font-headline-md text-2xl text-primary mb-2">Custom Protocols</h3>
+                <p class="font-body-md text-on-surface-variant">Bespoke training regimens built algorithmically based on your specific biomechanics, goals, and recovery metrics.</p>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+<script>
+        // Splash Screen Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.classList.add('splash-hidden');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
+            }, 2000); // Tampil 2 detik
+        });
+
+        // Header Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md', 'bg-surface/95');
+                header.classList.remove('bg-surface/80');
+            } else {
+                header.classList.remove('shadow-md', 'bg-surface/95');
+                header.classList.add('bg-surface/80');
+            }
+        });
+</script>
+</body></html>
+

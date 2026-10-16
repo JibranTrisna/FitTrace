@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FitTrace - Initialize Profile</title>
+    <style>html, body { background-color: #051424 !important; color: #d4e4fa !important; }</style>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Sora:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#273647",
+                      "on-surface-variant": "#c4c9ac",
+                      "tertiary": "#ffffff",
+                      "primary-fixed-dim": "#abd600",
+                      "surface-dim": "#051424",
+                      "surface": "#051424",
+                      "on-surface": "#d4e4fa",
+                      "on-background": "#d4e4fa",
+                      "background": "#051424",
+                      "primary": "#c3f400",
+                      "primary-fixed": "#c3f400"
+              },
+              "fontFamily": {
+                      "body-md": ["Hanken Grotesk", "sans-serif"],
+                      "label-caps": ["JetBrains Mono", "monospace"],
+                      "headline-md": ["Sora", "sans-serif"],
+                      "display-lg-mobile": ["Sora", "sans-serif"],
+                      "body-lg": ["Hanken Grotesk", "sans-serif"]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-active {
+            box-shadow: 0 0 15px rgba(195, 244, 0, 0.15);
+        }
+        .trace-bg {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md shadow-sm border-b border-white/10 sticky top-0 z-50 flex justify-between items-center w-full px-10 py-4 max-w-[1280px] mx-auto">
+<div class="flex items-center gap-4">
+<img alt="FitTrace Logo" class="h-8 w-8 rounded-sm object-cover" src="/images/fittrace-logo.jpg"/>
+<h1 class="font-display-lg-mobile text-2xl text-primary font-extrabold tracking-tighter hidden md:block">FitTrace</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-body-md text-on-surface hover:text-primary transition-colors" onclick="window.location.href='login.html'">Sign Out</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow relative flex items-center justify-center py-12 px-4 md:px-10" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+<div class="absolute inset-0 bg-background/80"></div>
+<div class="absolute inset-0 trace-bg opacity-50"></div>
+<div class="relative z-10 w-full max-w-[600px] glass-panel rounded-lg p-8 md:p-12 shadow-2xl">
+<div class="text-center mb-8">
+<h2 class="font-display-lg-mobile text-3xl text-primary mb-2">Initialize Your Profile</h2>
+<p class="font-body-lg text-lg text-on-surface-variant">Complete this assessment to tailor your Kinetic Protocols.</p>
+</div>
+<div class="mb-12">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-caps text-xs text-on-surface-variant">Step 1 of 5</span>
+<span class="font-label-caps text-xs text-primary">20%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full glow-active" style="width: 20%;"></div>
+</div>
+</div>
+<!-- Question Area -->
+<form id="quiz-form" class="mb-8">
+<h3 class="font-headline-md text-2xl text-on-surface mb-6">What is your primary training experience?</h3>
+<div class="flex flex-col gap-4">
+<!-- Option 1 -->
+<label class="group relative flex items-center p-4 glass-panel rounded cursor-pointer hover:bg-white/5 transition-all border border-white/10 hover:border-primary/50">
+<input class="peer sr-only" name="experience" type="radio" value="novice" required/>
+<div class="w-5 h-5 rounded-full border-2 border-on-surface-variant peer-checked:border-primary peer-checked:bg-primary mr-4 flex items-center justify-center transition-colors">
+<div class="w-2 h-2 rounded-full bg-surface hidden peer-checked:block"></div>
+</div>
+<div class="flex-grow">
+<span class="block font-headline-md text-lg text-on-surface group-hover:text-primary transition-colors">Novice</span>
+<span class="block font-body-md text-on-surface-variant">Just starting the journey.</span>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="group relative flex items-center p-4 glass-panel rounded cursor-pointer hover:bg-white/5 transition-all border border-white/10 hover:border-primary/50">
+<input class="peer sr-only" name="experience" type="radio" value="skilled" required/>
+<div class="w-5 h-5 rounded-full border-2 border-on-surface-variant peer-checked:border-primary peer-checked:bg-primary mr-4 flex items-center justify-center transition-colors">
+<div class="w-2 h-2 rounded-full bg-surface hidden peer-checked:block"></div>
+</div>
+<div class="flex-grow">
+<span class="block font-headline-md text-lg text-on-surface group-hover:text-primary transition-colors">Skilled</span>
+<span class="block font-body-md text-on-surface-variant">Consistent training for 1-2 years.</span>
+</div>
+</label>
+</div>
+<div class="flex justify-end mt-8 pt-4 border-t border-white/10">
+<button type="submit" class="bg-primary text-black font-headline-md text-lg py-3 px-8 rounded hover:bg-primary-fixed-dim transition-all hover:shadow-[0_0_20px_rgba(195,244,0,0.3)] active:scale-95 flex items-center gap-2 font-bold">
+                    Next Step
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+<script>
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('label.group').forEach(label => {
+                    label.classList.remove('border-primary/50', 'bg-white/5');
+                });
+                if(this.checked) {
+                    this.closest('label').classList.add('border-primary/50', 'bg-white/5');
+                }
+            });
+        });
+
+        document.getElementById('quiz-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Just simulate completion to unlock dashboard
+            try {
+                const token = localStorage.getItem('workoutToken');
+                const userId = localStorage.getItem('workoutUserId');
+                if(!token) { window.location.href = 'login.html'; return; }
+                
+                // Set level based on choice
+                const choice = document.querySelector('input[name="experience"]:checked').value;
+                let level = 'Beginner';
+                if(choice === 'skilled') level = 'Intermediate';
+
+                const res = await fetch(`/api/user/${userId}/level`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ level: level, needsQuiz: false })
+                });
+
+                if(res.ok) {
+                    window.location.href = 'dashboard.html';
+                }
+            } catch(e) {
+                console.error(e);
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body></html>
+

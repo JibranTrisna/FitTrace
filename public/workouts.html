@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Workout Plans - FitTrace</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: { extend: { colors: { "primary-fixed-dim": "#abd600", "primary-fixed": "#c3f400", "background": "#051424", "surface": "#051424", "surface-container": "#122131", "surface-container-high": "#1c2b3c", "surface-container-lowest": "#010f1f", "on-surface": "#d4e4fa", "on-surface-variant": "#c4c9ac" }, fontFamily: { "display-lg": ["Sora"], "display-lg-mobile": ["Sora"], "headline-md": ["Sora"], "body-lg": ["Hanken Grotesk"], "body-md": ["Hanken Grotesk"], "label-caps": ["JetBrains Mono"] } } }
+        }
+    </script>
+    <style>
+        body { background-color: #051424; color: #d4e4fa; }
+        .glass-panel { background: rgba(18, 33, 49, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .trace-glow { box-shadow: 0 0 20px rgba(171, 214, 0, 0.15); }
+        .card-hover-effect { transition: all 0.3s ease; }
+        .card-hover-effect:hover { border-color: rgba(171, 214, 0, 0.5); transform: translateY(-4px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script src="js/guard.js"></script>
+    <script src="js/exercisesDB.js?v=2"></script>
+</head>
+<body class="antialiased min-h-screen w-full overflow-x-hidden overflow-y-scroll bg-background text-on-background font-body-md flex flex-col lg:flex-row">
+
+<!-- Sidebar Navigation -->
+<nav class="hidden lg:flex flex-col fixed left-0 top-0 h-screen p-2 bg-surface-container-lowest/90 backdrop-blur-2xl border-r border-white/5 shadow-2xl w-64 z-50">
+    <a href="dashboard.html" class="flex flex-col items-center justify-center pt-6 pb-12 border-b border-white/5 mb-6 group cursor-pointer hover:brightness-110 transition-all">
+<img alt="FitTrace Logo" class="w-16 h-16 rounded-lg mb-3 object-cover shadow-lg group-hover:scale-105 transition-transform" src="/images/fittrace-logo.jpg">
+<h1 class="font-display-lg text-3xl text-primary-fixed-dim tracking-tighter text-center group-hover:text-primary transition-colors">FitTrace</h1>
+<p class="font-label-caps text-xs text-on-surface-variant mt-2 opacity-80">Kinetic Precision</p>
+</a>
+    <div class="flex-1 space-y-2">
+        <a class="text-on-surface-variant hover:text-primary-fixed-dim hover:bg-white/5 transition-all flex items-center space-x-3 px-4 py-3 rounded-xl font-label-caps" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+        <a class="text-primary-fixed-dim bg-primary-fixed-dim/10 flex items-center space-x-3 px-4 py-3 rounded-xl font-label-caps" href="workouts.html"><span class="material-symbols-outlined">fitness_center</span><span>Workout Plans</span></a>
+        <a class="text-on-surface-variant hover:text-primary-fixed-dim hover:bg-white/5 transition-all flex items-center space-x-3 px-4 py-3 rounded-xl font-label-caps" href="progress.html"><span class="material-symbols-outlined">trending_up</span><span>Progress Tracker</span></a>
+        <a class="text-on-surface-variant hover:text-primary-fixed-dim hover:bg-white/5 transition-all flex items-center space-x-3 px-4 py-3 rounded-xl font-label-caps" href="chat.html"><span class="material-symbols-outlined">psychology</span><span>Kinetic AI</span></a>
+        <a class="text-on-surface-variant hover:text-primary-fixed-dim hover:bg-white/5 transition-all flex items-center space-x-3 px-4 py-3 rounded-xl font-label-caps" href="profile.html"><span class="material-symbols-outlined">person</span><span>Profile</span></a>
+    </div>
+    <div class="mt-auto border-t border-white/5 pt-4">
+        <button onclick="logout()" class="w-full text-left flex items-center space-x-3 px-4 py-2 text-on-surface-variant hover:text-primary-fixed-dim hover:bg-white/5 transition-all rounded-xl font-label-caps"><span class="material-symbols-outlined" style="font-size: 18px;">logout</span><span>Sign Out</span></button>
+    </div>
+</nav>
+
+<!-- Mobile Navs -->
+<header class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl border-b border-white/5 z-40 flex items-center justify-between px-4">
+    <a href="dashboard.html" class="flex items-center gap-2 cursor-pointer hover:brightness-110 transition-all">
+<img src="/images/fittrace-logo.jpg" class="w-8 h-8 rounded-md object-cover shadow-lg" alt="FitTrace">
+<h1 class="font-display-lg text-xl text-primary-fixed-dim tracking-tighter">FitTrace</h1>
+</a>
+    <button onclick="logout()" class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors p-2 flex items-center justify-center"><span class="material-symbols-outlined text-xl">logout</span></button>
+</header>
+<nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest/90 backdrop-blur-2xl border-t border-white/5 z-40 pb-safe">
+    <div class="flex justify-around items-center p-3">
+        <a href="dashboard.html" class="text-on-surface-variant hover:text-primary-fixed-dim flex flex-col items-center gap-1 transition-colors"><span class="material-symbols-outlined text-2xl">dashboard</span><span class="text-[10px] font-label-caps">Home</span></a>
+        <a href="workouts.html" class="text-primary-fixed-dim flex flex-col items-center gap-1 transition-colors"><span class="material-symbols-outlined text-2xl">fitness_center</span><span class="text-[10px] font-label-caps">Workouts</span></a>
+        <a href="progress.html" class="text-on-surface-variant hover:text-primary-fixed-dim flex flex-col items-center gap-1 transition-colors"><span class="material-symbols-outlined text-2xl">trending_up</span><span class="text-[10px] font-label-caps">Progress</span></a>
+        <a href="chat.html" class="text-on-surface-variant hover:text-primary-fixed-dim flex flex-col items-center gap-1 transition-colors"><span class="material-symbols-outlined text-2xl">psychology</span><span class="text-[10px] font-label-caps">AI Coach</span></a>
+        <a href="profile.html" class="text-on-surface-variant hover:text-primary-fixed-dim flex flex-col items-center gap-1 transition-colors"><span class="material-symbols-outlined text-2xl">person</span><span class="text-[10px] font-label-caps">Profile</span></a>
+    </div>
+</nav>
+
+<!-- Main Content Canvas -->
+<main class="flex-1 min-w-0 w-full lg:w-auto lg:ml-64 pt-20 pb-24 lg:pt-8 lg:pb-12 px-4 lg:px-10 min-h-screen relative z-10 flex flex-col">
+    <div class="max-w-[1280px] w-full">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
+            <div>
+                <h2 class="font-display-lg-mobile md:font-display-lg text-3xl md:text-4xl text-on-surface mb-2">Pustaka Latihan</h2>
+                <p class="text-on-surface-variant font-body-lg max-w-2xl">Eksplorasi database pergerakan Kinetic untuk menyusun rutinitas maksimal.</p>
+            </div>
+            <div class="w-full md:w-auto relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input type="text" id="library-search" placeholder="Cari nama atau manfaat..." class="w-full md:w-80 bg-surface-container border border-white/10 rounded-full py-3 pl-10 pr-4 text-on-surface focus:outline-none focus:border-primary-fixed-dim transition-all">
+            </div>
+        </div>
+
+        <div id="category-filters" class="flex gap-3 overflow-x-auto no-scrollbar pb-4 mb-8">
+            <!-- Kategori dinamis -->
+        </div>
+
+        <!-- Dynamic Hero Program -->
+        <section class="mb-12">
+            <h3 class="font-headline-md text-xl md:text-2xl text-on-surface mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">target</span>
+                Active AI Protocol
+            </h3>
+            <div class="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden group border border-white/10 card-hover-effect">
+                <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop');"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+                <div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
+                    <div class="max-w-2xl">
+                        <div id="hero-badge" class="inline-block bg-primary-fixed-dim/20 text-primary-fixed-dim border border-primary-fixed-dim/30 font-label-caps px-3 py-1 rounded-full mb-3 text-sm">Loading...</div>
+                        <h4 id="hero-title" class="font-display-lg-mobile md:font-display-lg text-3xl md:text-5xl text-primary mb-2 leading-tight">Syncing AI Data...</h4>
+                        <p id="hero-desc" class="font-body-lg text-on-surface-variant mb-6 line-clamp-2 md:line-clamp-none">Tunggu sebentar, kami sedang mengambil protokol AI personalisasi lo dari database.</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="dashboard.html" class="bg-primary-fixed-dim text-black font-label-caps py-3 px-8 rounded-lg transition-all hover:scale-105 text-center trace-glow font-bold flex justify-center items-center gap-2">
+                                <span class="material-symbols-outlined">dashboard</span> Lihat di Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Grid -->
+        <section class="mb-12" id="workout-list">
+            <div class="flex justify-between items-end mb-6 border-b border-white/10 pb-4">
+                <h3 class="font-headline-md text-xl md:text-2xl text-on-surface">Browse Protocols</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                <!-- Injected by JS -->
+            </div>
+        </section>
+    </div>
+</main>
+<script>
+    function logout() {
+        localStorage.removeItem('workoutToken');
+        localStorage.removeItem('workoutUserId');
+        window.location.href = 'login.html';
+    }
+</script>
+<script src="js/workouts.js?v=16"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic AI - Access Protocol</title>
+    <style>html, body { background-color: #051424 !important; color: #d4e4fa !important; }</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#131313",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary": "#303030",
+                        "on-tertiary-container": "#656464",
+                        "outline": "#909378",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "background": "#131313",
+                        "primary-fixed-dim": "#b8d300",
+                        "inverse-primary": "#576500",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "error-container": "#93000a",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#303030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-surface-variant": "#c6c9ab",
+                        "on-primary": "#2c3400",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "surface": "#131313",
+                        "on-background": "#e5e2e1",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed-variant": "#474746",
+                        "outline-variant": "#454932",
+                        "primary-container": "#d2f000",
+                        "surface-tint": "#b8d300",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary": "#c8c6c5",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#d2f000",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "inverse-on-surface": "#313030",
+                        "on-surface": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "on-primary-fixed-variant": "#414c00",
+                        "on-primary-container": "#5d6b00",
+                        "secondary-container": "#474746",
+                        "primary": "#ffffff",
+                        "on-secondary-container": "#b7b5b4",
+                        "tertiary-container": "#e4e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-fixed": "#191e00",
+                        "tertiary": "#ffffff",
+                        "on-secondary-fixed": "#1b1b1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "gutter": "20px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "stat-value": ["Barlow Condensed"],
+                        "headline-lg": ["Barlow Condensed"],
+                        "headline-md": ["Barlow Condensed"],
+                        "display-lg": ["Barlow Condensed"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Barlow Condensed"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "stat-value": ["32px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "44px", "letterSpacing": "0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["72px", { "lineHeight": "76px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .hud-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top-color: rgba(255, 255, 255, 0.2);
+            border-left-color: rgba(255, 255, 255, 0.2);
+        }
+        .hud-glow {
+            box-shadow: 0 0 15px rgba(210, 240, 0, 0.15);
+        }
+        .hud-line {
+            background: linear-gradient(90deg, rgba(210, 240, 0, 0) 0%, rgba(210, 240, 0, 0.5) 50%, rgba(210, 240, 0, 0) 100%);
+        }
+        .input-glow:focus {
+            box-shadow: 0 1px 0 0 #d2f000, 0 10px 20px -10px rgba(210, 240, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-hidden relative selection:bg-primary-fixed selection:text-black">
+    
+<!-- Toast Container -->
+<div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2"></div>
+
+<!-- Ambient Background -->
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(30,30,30,1)_0%,rgba(18,18,18,1)_100%)]"></div>
+<div class="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center relative z-10 p-gutter w-full">
+<div class="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 gap-0 hud-border rounded-xl bg-surface-container-highest/80 backdrop-blur-xl overflow-hidden shadow-2xl hud-glow">
+<!-- Left Side: Visual / Brand -->
+<div class="hidden md:flex flex-col justify-between p-lg relative border-r border-white/5" data-alt="A dark, cinematic visualization of a futuristic AI core server room. Glowing neon electric lime data streams flow through monolithic black obsidian servers. High contrast, sharp details, glassmorphism UI elements floating in the air. The mood is highly technical, elite, and intense, evoking a cutting-edge high-performance laboratory. 8k resolution, photorealistic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBqsQQcb74ylzrrfFezf-wsKbDH7Hb5qAJ_sEkBQ--OyiFxZI0SSlJac0eVF4Ww7CoLa4obs1BpH7CgB9yX3Dy_dCF0-0cvJfWgbUh_FrOblwGqw-8JZltw1d8v-XJoqcoEw7ouD-7gen4eq4l-IGjzZ57x9URFC3_v25LncF5Qp2lA2WKFTrxD74P-XiIxps2N5E4xS5620Ie-aBaUegoA-ZrjncuBJHapnC--8A3C4_52F4Sjwfk'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-background/60 backdrop-blur-sm z-0"></div>
+<div class="relative z-10">
+<h1 class="font-display-lg text-display-lg text-primary-fixed uppercase italic mb-2 tracking-tighter">KINETIC AI</h1>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+                        Engineered for Elite Performance
+                    </p>
+</div>
+<div class="relative z-10 mt-auto">
+<div class="w-full h-[1px] hud-line mb-6 opacity-30"></div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-1">SYSTEM STATUS</span>
+<span class="block font-stat-value text-stat-value text-primary-fixed italic">ONLINE</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-1">SERVER PING</span>
+<span class="block font-stat-value text-stat-value text-primary-fixed italic">12ms</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Form -->
+<div class="p-lg md:p-xl flex flex-col justify-center relative bg-surface-dim/50">
+<!-- Mobile Logo Fallback -->
+<div class="md:hidden mb-8 text-center">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-fixed uppercase italic tracking-tighter">KINETIC AI</h1>
+</div>
+<!-- Protocol Toggle -->
+<div class="flex items-center gap-4 mb-10 border-b border-white/10 pb-4">
+<button id="tab-login" onclick="toggleFormUI('login')" class="font-label-md text-label-md uppercase tracking-wider text-primary-fixed border-b-2 border-primary-fixed pb-1 transition-colors">LOGIN</button>
+<button id="tab-register" onclick="toggleFormUI('register')" class="font-label-md text-label-md uppercase tracking-wider text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent">REGISTER</button>
+</div>
+
+<!-- LOGIN SECTION -->
+<div id="login-section">
+    <form id="login-form" class="space-y-6">
+        <!-- Access Key Input -->
+        <div class="relative group">
+        <label class="block font-label-md text-label-md text-secondary mb-2 uppercase flex items-center gap-2" for="login-username">
+        <span class="material-symbols-outlined text-[16px]">fingerprint</span> Access Key
+                                </label>
+        <input id="login-username" required autocomplete="username" class="w-full bg-[#2A2A2A] border-0 border-b border-white/20 text-on-background font-body-md text-body-md px-4 py-3 focus:ring-0 focus:border-primary-fixed input-glow transition-all rounded-t-sm outline-none placeholder:text-on-surface-variant/50" placeholder="Enter identification string" type="text"/>
+        </div>
+        <!-- Neural Link Input -->
+        <div class="relative group pt-4">
+        <label class="block font-label-md text-label-md text-secondary mb-2 uppercase flex items-center gap-2" for="login-password">
+        <span class="material-symbols-outlined text-[16px]">memory</span> Neural Link
+                                </label>
+        <input id="login-password" required autocomplete="current-password" class="w-full bg-[#2A2A2A] border-0 border-b border-white/20 text-on-background font-body-md text-body-md px-4 py-3 focus:ring-0 focus:border-primary-fixed input-glow transition-all rounded-t-sm outline-none placeholder:text-on-surface-variant/50" placeholder="Enter encrypted passkey" type="password"/>
+        </div>
+        <div class="flex items-center justify-between pt-2">
+        <label class="flex items-center gap-2 cursor-pointer">
+        <input class="form-checkbox bg-[#2A2A2A] border-white/20 text-primary-fixed rounded-sm focus:ring-primary-fixed focus:ring-offset-background" type="checkbox"/>
+        <span class="font-label-md text-label-md text-secondary">PERSIST CONNECTION</span>
+        </label>
+        </div>
+        <!-- Submit CTA -->
+        <div class="pt-8">
+        <button class="w-full bg-primary-fixed text-black font-headline-md text-headline-md uppercase italic py-4 rounded-sm hover:bg-white transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3" type="submit">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">login</span>
+                                    INITIATE ACCESS
+                                </button>
+        </div>
+    </form>
+</div>
+
+<!-- REGISTER SECTION -->
+<div id="register-section" class="hidden">
+    <form id="register-form" class="space-y-6">
+        <!-- Access Key Input -->
+        <div class="relative group">
+        <label class="block font-label-md text-label-md text-secondary mb-2 uppercase flex items-center gap-2" for="register-username">
+        <span class="material-symbols-outlined text-[16px]">person_add</span> New Access Key
+                                </label>
+        <input id="register-username" required autocomplete="username" class="w-full bg-[#2A2A2A] border-0 border-b border-white/20 text-on-background font-body-md text-body-md px-4 py-3 focus:ring-0 focus:border-primary-fixed input-glow transition-all rounded-t-sm outline-none placeholder:text-on-surface-variant/50" placeholder="Create new identification string" type="text"/>
+        </div>
+        <!-- Neural Link Input -->
+        <div class="relative group pt-4">
+        <label class="block font-label-md text-label-md text-secondary mb-2 uppercase flex items-center gap-2" for="register-password">
+        <span class="material-symbols-outlined text-[16px]">lock</span> Create Neural Link
+                                </label>
+        <input id="register-password" required autocomplete="new-password" class="w-full bg-[#2A2A2A] border-0 border-b border-white/20 text-on-background font-body-md text-body-md px-4 py-3 focus:ring-0 focus:border-primary-fixed input-glow transition-all rounded-t-sm outline-none placeholder:text-on-surface-variant/50" placeholder="Create encrypted passkey" type="password"/>
+        </div>
+        <!-- Submit CTA -->
+        <div class="pt-16">
+        <button class="w-full bg-primary-fixed text-black font-headline-md text-headline-md uppercase italic py-4 rounded-sm hover:bg-white transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3" type="submit">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+                                    REGISTER PROTOCOL
+                                </button>
+        </div>
+    </form>
+</div>
+
+<!-- Footer HUD Elements -->
+<div class="mt-12 flex justify-between items-center border-t border-white/5 pt-4">
+<div class="font-label-md text-[10px] text-on-surface-variant/50 uppercase tracking-widest">
+                        SECURE ENCLAVE v2.4
+                    </div>
+<div class="flex gap-1">
+<div class="w-2 h-2 bg-primary-fixed rounded-full animate-pulse"></div>
+<div class="w-2 h-2 bg-primary-fixed/30 rounded-full"></div>
+<div class="w-2 h-2 bg-primary-fixed/30 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script src="js/auth.js"></script>
+</body></html>
+

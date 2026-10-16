@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FitTrace - Login</title>
+    <style>html, body { background-color: #051424 !important; color: #d4e4fa !important; }</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Sora:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "surface-container": "#122131",
+                            "surface": "#051424",
+                            "surface-container-highest": "#273647",
+                            "primary-fixed-dim": "#abd600",
+                            "primary-fixed": "#c3f400",
+                            "primary": "#ffffff",
+                            "on-surface-variant": "#c4c9ac",
+                            "background": "#051424",
+                            "on-surface": "#d4e4fa"
+                    },
+                    "fontFamily": {
+                            "body-md": ["Hanken Grotesk"],
+                            "headline-md": ["Sora"],
+                            "display-lg": ["Sora"],
+                            "label-caps": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 12px rgba(171, 214, 0, 0.2);
+            border-color: #abd600;
+        }
+        .btn-primary-glow:hover {
+            box-shadow: 0 0 20px rgba(171, 214, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex items-center justify-center relative overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="" class="w-full h-full object-cover object-center opacity-40" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background"></div>
+</div>
+
+<div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2"></div>
+
+<!-- Registration Container -->
+<main class="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-10 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-screen">
+<!-- Left Side -->
+<div class="hidden lg:flex flex-col justify-center space-y-6 pr-12">
+<div class="w-32 h-32 rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-surface-container-highest flex items-center justify-center p-2">
+<img alt="FitTrace Logo" class="w-full h-full object-contain rounded-md" src="/images/fittrace-logo.jpg"/>
+</div>
+<h1 class="font-display-lg text-5xl font-extrabold text-primary">Kinetic Precision.</h1>
+<p class="font-body-md text-lg text-on-surface-variant max-w-md">
+                Enter the ecosystem designed for elite tracking. Data-driven insights, uncompromising performance, and a community pushing boundaries.
+            </p>
+<div class="mt-12 flex items-center space-x-4">
+<div class="h-[2px] w-16 bg-primary-fixed-dim rounded-full"></div>
+<span class="font-label-caps text-xs text-primary-fixed-dim tracking-widest uppercase">System Initialization</span>
+</div>
+</div>
+<!-- Right Side -->
+<div class="glass-panel rounded-2xl p-6 sm:p-12 w-full max-w-md mx-auto shadow-2xl relative overflow-hidden">
+<!-- Mobile Logo -->
+<div class="lg:hidden mb-6 flex justify-center">
+<div class="w-20 h-20 rounded-md overflow-hidden border border-white/10 p-1">
+<img alt="FitTrace Logo" class="w-full h-full object-contain rounded-sm" src="/images/fittrace-logo.jpg"/>
+</div>
+</div>
+<div class="mb-6 text-center lg:text-left">
+<h2 class="font-headline-md text-2xl font-bold text-primary mb-2">Access Your Data</h2>
+<p class="font-body-md text-on-surface-variant">Kinetic precision awaits. Initialize session.</p>
+</div>
+<form id="login-form" class="space-y-4">
+<!-- Username (changed from email to match our auth logic) -->
+<div>
+<label class="block font-label-caps text-xs text-on-surface-variant mb-2 uppercase" for="login-username">Identification String</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-opacity-50">fingerprint</span>
+<input required class="w-full bg-surface-container-highest border border-white/10 rounded-lg py-3 pl-10 pr-4 text-primary font-body-md placeholder-on-surface-variant/50 focus:outline-none input-glow transition-all duration-200" id="login-username" placeholder="Enter username" type="text"/>
+</div>
+</div>
+<!-- Password -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block font-label-caps text-xs text-on-surface-variant uppercase" for="login-password">Security Key</label>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-opacity-50">lock</span>
+<input required class="w-full bg-surface-container-highest border border-white/10 rounded-lg py-3 pl-10 pr-4 text-primary font-body-md placeholder-on-surface-variant/50 focus:outline-none input-glow transition-all duration-200" id="login-password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-4">
+<button class="w-full bg-primary-fixed-dim text-black font-label-caps font-bold py-4 rounded-lg uppercase tracking-widest transition-all duration-200 btn-primary-glow flex items-center justify-center gap-2" type="submit">
+<span>Initialize Session</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Login Link -->
+<div class="mt-8 text-center">
+<p class="font-body-md text-on-surface-variant">
+                    Unregistered operative? 
+                    <a class="text-primary-fixed-dim hover:text-primary transition-colors duration-200 font-semibold underline underline-offset-4" href="register.html">Establish Credentials</a>
+</p>
+</div>
+</div>
+</main>
+<script src="js/auth-split.js"></script>
+</body></html>
+
